@@ -1,0 +1,127 @@
+// main: ../index.scss
+
+html {
+  font-size: 16px;
+  @include respond-to($medium) {
+    font-size: calc(16px + .1vw);
+  };
+  @include respond-to($extra-large) {
+    font-size: 17px;
+  };
+}
+
+body {
+  transition: 0.4s ease-in;
+  margin: 0;
+  padding: 0;
+  font-size: $font-size;
+  font-family: $font-primary;
+  line-height: $font-line-height-primary;
+  color: $font-color-primary;
+  font-weight: 300;
+  width: 100%;
+  background-color: $color-primary-dark;
+
+  &.dark {
+    background-color: $color-primary-dark;
+  }
+  &.noscroll {
+    overflow: hidden;
+  }
+  &::-webkit-scrollbar {
+    background-color: $color-primary-dark;
+  }
+
+  &.after-loaded {
+    position: static;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      background-color: #fff;
+    }
+
+  }
+  &.loc-modal {
+    overflow-y: hidden;
+    position: fixed;
+    width: 100%;
+    overflow-y: hidden;
+  }
+}
+
+
+* {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  &::before,
+  &::after {
+    @include transition(0.3s);
+    box-sizing: border-box;
+  }
+}
+
+@include selection() {
+  color: $selection-color;
+  background-color: $selection-bg-COLOR;
+};
+
+.pointer {
+  cursor: pointer;
+}
+.inline-block {
+  display: inline-block;
+}
+.block {
+  display: block;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+section {
+  overflow: hidden;
+  transition: 0.4s ease-in;
+  padding: 40px 16px;
+  z-index: 2;
+
+
+  @include respond-to($medium) {
+    padding: 40px calc(40px + 4vw);
+    &.mp {
+      padding: 100px calc(40px + 4vw) 100px;
+    }
+  };
+
+}
+
+.cookie {
+  &__popup {
+    z-index: 102;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 24px;
+    background-color: $color-primary;
+    border-top: 2px solid $color-accent;
+    transform: translateY(24px);
+    transition: 0.3s ease;
+
+    &.visible {
+      transform: translateY(0);
+    }
+
+    p {
+      width: calc(100% - 400px);
+    }
+  }
+}
