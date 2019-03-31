@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import AboutMe from './pages/AboutMe';
+import Projects from './pages/Projects';
 
 
 class Router extends Component {
@@ -9,8 +11,8 @@ class Router extends Component {
       <>
         {/* <Route path="/" component={MainWrapper} /> */}
         <Switch>
-          {/* <Route path="/storyboard" component={Storyboard} />
-          <Route path="/" component={Dashboard} /> */}
+          <Route path="/about-me" component={AboutMe} />
+          <Route path="/" component={Projects} />
           {/* <Route path="/signin" component={Signin} />
           <Route path="/signout" component={Signout} />
           <PrivateRoute path="/log/success" component={SuccessLog} />
