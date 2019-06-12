@@ -20,6 +20,7 @@ body {
   color: $font-color-primary;
   font-weight: 300;
   width: 100%;
+  background-color: $color-primary;
 
   &.dark {
     background-color: $color-primary-dark;
