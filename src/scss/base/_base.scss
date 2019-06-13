@@ -28,10 +28,6 @@ body {
   &.noscroll {
     overflow: hidden;
   }
-  &::-webkit-scrollbar {
-    background-color: $color-primary-dark;
-  }
-
   &.after-loaded {
     position: static;
     overflow-y: auto;

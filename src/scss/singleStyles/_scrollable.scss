@@ -5,11 +5,11 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: #fff;
+  background-color:$color-secondary;
   width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $color-primary;
-  border-radius: 4px;
+  background-color: $color-primary-light;
+  // border-radius: 4px;
 }
