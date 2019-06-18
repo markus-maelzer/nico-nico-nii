@@ -24,8 +24,12 @@ span {
 }
 
 .main-title {
-  font-size: 160px;
-  line-height: 1.0625;
+  font-size: 35px;
+  @include respond-to($medium-large) {
+    font-size: 160px;
+    line-height: 1.0625;    
+  };
+
 }
 
 .text-main, p {

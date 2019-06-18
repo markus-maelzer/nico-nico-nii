@@ -16,3 +16,11 @@
 @import "singleStyles/shadows";
 @import "singleStyles/scrollable";
 @import "singleStyles/overlay";
+
+.noscroll {
+  overflow: hidden;
+}
+
+.scrolltainer > * {
+  height: 100%;
+}

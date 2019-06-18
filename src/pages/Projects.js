@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Title, ScrollSlider, Fade } from '../components';
+import { Title, ScrollSlider } from '../components';
 
 
 class Projects extends Component {
@@ -11,19 +11,19 @@ class Projects extends Component {
       <div>
         <Title>
           Hey, <br />
-          I’m Nicolas Cetl,
+          I’m Nicolas <span className="accent">Cetl,</span>
         </Title>
-        <ScrollSlider>
-          <Fade>            
+        <div className="scrolltainer noscroll row flex-align-stretch">
+          <ScrollSlider totalSlides={2}>
             <Title>
               a media designer
               from Villach, Austria
             </Title>
-          </Fade>
-          <Title>
-            these are my Projects
-          </Title>
-        </ScrollSlider>
+            <Title>
+              these are<br /> my <span className="accent">Projects</span>
+            </Title>
+          </ScrollSlider>
+        </div>
         <div className="fh-v">
 
         </div>
