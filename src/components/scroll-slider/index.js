@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export class ScrollSlider extends Component {
   state = {
@@ -7,24 +8,30 @@ export class ScrollSlider extends Component {
     activeIndex: 0,
     totalSlides: 2,
     touchStartPos: null,
+    animating: false,
   }
 
   componentDidMount() {
-    window.addEventListener('wheel', this.handleWheel, { passive: true });
     if (window.pageYOffset <= this.state.stopScrollAt) {
       this.disableScroll();
     }
-
-    // window.addEventListener('touchstart', this.handleWheel);
-    window.addEventListener('touchstart', this.handleTouchStart);
-    window.addEventListener('touchend', this.handleTouchEnd);
+  }
+  componentWillUnmount() {
+    this.enableScroll();
   }
   disableScroll = () => {
+    window.addEventListener('wheel', this.handleWheel, { passive: true });
+    window.addEventListener('touchstart', this.handleTouchStart);
+    window.addEventListener('touchend', this.handleTouchEnd);
     document.body.style.overflow = 'hidden';
   }
   enableScroll = () => {
     document.body.style.overflow = 'auto';
+    window.removeEventListener('wheel', this.handleWheel, { passive: true });
+    window.removeEventListener('touchstart', this.handleTouchStart);
+    window.removeEventListener('touchend', this.handleTouchEnd);
   }
+
 
   handleTouchStart = (e) => {
     // console.log(e);
@@ -34,12 +41,23 @@ export class ScrollSlider extends Component {
   }
   handleTouchEnd = (e) => {
     const { touchStartPos } = this.state;
-    console.log(touchStartPos < e.changedTouches[0].clientY);
-    if (touchStartPos < e.changedTouches[0].clientY) {
-      this.nextSlide()
-    } else if(touchStartPos > e.changedTouches[0].clientY) {
-      this.prevSlide()
+
+    this.handleSlides(touchStartPos, e.changedTouches[0].clientY);
+  }
+
+  handleSlides = (factor1, factor2) => {
+    const { animating } = this.state;
+    if(animating) return;
+    console.log(factor1);
+    if (factor1 > factor2) {
+      this.nextSlide();
+    } else if(factor1 < factor2) {
+      this.prevSlide();
     }
+    this.setState({animating: true})
+    this.animTimeout = setTimeout(() => {
+      this.setState({animating: false})
+    }, this.props.animTimeout);
   }
 
   nextSlide = () => {
@@ -53,23 +71,29 @@ export class ScrollSlider extends Component {
   prevSlide = () => {
     const { activeIndex } = this.state;
 
-    if(activeIndex !== 0 && this.state.stopScrollAt !== 0 )
+    if(activeIndex !== 0 )
       this.setState({ activeIndex: activeIndex - 1 })
-    else
+    else if (this.state.stopScrollAt !== 0) {
       this.enableScroll();
+    }
   }
 
   handleWheel = (e) => {
-    console.log(e.type);
-    console.log(e);
+    this.handleSlides(e.deltaY, 0);
   }
 
   render() {
-    console.log(this.state.activeIndex);
     return (
       <>
-        {this.props.children}
+      <TransitionGroup>
+        {[this.props.children[this.state.activeIndex]]}        
+      </TransitionGroup>
       </>
     );
   }
+}
+
+
+ScrollSlider.defaultProps = {
+  animTimeout: 500
 }
