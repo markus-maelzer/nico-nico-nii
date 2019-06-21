@@ -1,51 +1,32 @@
 import React, { Component } from 'react';
-import posed from 'react-pose';
+import PropTypes from 'prop-types';
 
-const boxTransition = {
-  type: 'tween',
-  ease: 'easeIn',
-  duration: 400,
-}
-const Box = posed.div({
-  outTop: {
-    top: 0,
-    position: 'absolute',
-    y: '-100%',
-    transition: boxTransition,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: boxTransition,
-  },
-  outBottom: {
-    top: 0,
-    position: 'absolute',
-    y: '100%',
-    transition: boxTransition,
-  }
-});
+// TODO: ScrollSlider fix scroll handler when height of body is not enoght to scroll
 
 export class ScrollSlider extends Component {
   state = {
     stopScroll: false,
-    stopScrollAt: 0,
     activeIndex: 0,
     touchStartPos: null,
     animating: false,
+    init: true,
+    height: 'auto',
   }
+  test = [];
 
   componentDidMount() {
-    if (window.pageYOffset <= this.state.stopScrollAt) {
+    if (window.pageYOffset <= this.props.stopScrollAt) {
       this.disableScroll();
+    } else {
+      this.setState({
+        activeIndex: this.props.totalSlides - 1,
+      })
     }
+    window.addEventListener('scroll', this.handleScroll);
+    this.detHeight();
   }
   componentWillUnmount() {
     this.enableScroll();
-  }
-
-  componentWillReceiveProps() {
-
   }
 
   disableScroll = () => {
@@ -61,6 +42,11 @@ export class ScrollSlider extends Component {
     window.removeEventListener('touchend', this.handleTouchEnd);
   }
 
+  handleScroll = () => {
+    if(window.pageYOffset <= this.props.stopScrollAt) {
+      this.disableScroll();
+    }
+  }
 
   handleTouchStart = (e) => {
     // console.log(e);
@@ -83,6 +69,9 @@ export class ScrollSlider extends Component {
     } else if(factor1 < factor2) {
       this.prevSlide();
     }
+  }
+
+  handleAnimating = () => {
     this.setState({animating: true})
     this.animTimeout = setTimeout(() => {
       this.setState({animating: false})
@@ -97,35 +86,56 @@ export class ScrollSlider extends Component {
       this.setState({ activeIndex: activeIndex + 1 })
     else
       this.enableScroll();
+
+    this.handleAnimating();
   }
   prevSlide = () => {
     const { activeIndex } = this.state;
 
     if(activeIndex !== 0 )
       this.setState({ activeIndex: activeIndex - 1 })
-    else if (this.state.stopScrollAt !== 0) {
+    else if (this.props.stopScrollAt !== 0) {
       this.enableScroll();
     }
+    this.handleAnimating();
   }
 
   handleWheel = (e) => {
     this.handleSlides(e.deltaY, 0);
   }
 
-  renderChildren = (e) => {
-    const {activeIndex} = this.state;
+  setRef = (indicator) => (el) => {
+    this.test[indicator] = el;
+  }
 
-    return this.props.children.map((child, i) => {
-      const poseClass = activeIndex === i ? 'visible' : activeIndex > i ? 'outTop' : 'outBottom';
-      return <Box key={i} pose={poseClass}>{child}</Box>;
+  detHeight = () => {
+    if(this.test.length === 0) return 'auto';
+    // console.log(this.test[0].clientHeight);
+    const height = this.test.reduce((acc, cur) => {
+      return  acc < cur.clientHeight ? cur.clientHeight : acc;
+    }, 0);
+
+    this.setState({
+      height,
+      init: false,
     })
+  }
+  poseClass = (activeIndex, i) => {
+    const actual = activeIndex === i ? 'visible' : activeIndex > i ? 'outTop' : 'outBottom';
+    if(this.state.init) {
+      return 'visible';
+    } else {
+      return actual;
+    }
   }
 
   render() {
+    const { height } = this.state;
+    const { setRef, state, poseClass } = this
     return (
-      <>
-        {this.renderChildren()}
-      </>
+      <div className="scrolltainer noscroll" style={{ height }}>
+        {this.props.children({setRef, poseClass}, state)}
+      </div>
     );
   }
 }
@@ -134,4 +144,9 @@ export class ScrollSlider extends Component {
 ScrollSlider.defaultProps = {
   animTimeout: 500,
   totalSlides: 2,
+  stopScrollAt: 0,
+}
+
+ScrollSlider.propTypes = {
+  children: PropTypes.func.isRequired,
 }

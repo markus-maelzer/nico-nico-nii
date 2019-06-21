@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Title, ScrollSlider } from '../components';
+import { Title, ScrollSlider, Box } from '../components';
 
 
 class Projects extends Component {
@@ -13,20 +13,26 @@ class Projects extends Component {
           Hey, <br />
           I’m Nicolas <span className="accent">Cetl,</span>
         </Title>
-        <div className="scrolltainer noscroll row flex-align-stretch">
-          <ScrollSlider totalSlides={2}>
-            <Title>
-              a media designer
-              from Villach, Austria
-            </Title>
-            <Title>
-              these are<br /> my <span className="accent">Projects</span>
-            </Title>
-          </ScrollSlider>
-        </div>
-        <div className="fh-v">
-
-        </div>
+        <ScrollSlider totalSlides={2}>
+          {({setRef, poseClass}, {activeIndex, init}) => {
+            return (
+            <>
+              <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
+                <Title>
+                  a media designer
+                  from Villach, Austria
+                </Title>
+              </Box>
+              <Box ref={setRef(1)} pose={poseClass(activeIndex, 1)}>
+                <Title>
+                  these are<br /> my <span className="accent">Projects</span>
+                </Title>
+              </Box>
+            </>
+          )
+        }}
+        </ScrollSlider>
+        <div className="fh-v"></div>
       </div>
     );
   }

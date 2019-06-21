@@ -27,9 +27,9 @@ span {
   font-size: 35px;
   @include respond-to($medium-large) {
     font-size: 160px;
-    line-height: 1.0625;    
+    line-height: 1.0625;
   };
-
+  padding-bottom: 20px;
 }
 
 .text-main, p {
