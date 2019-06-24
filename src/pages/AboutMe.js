@@ -46,7 +46,7 @@ export default class AvoutMe extends Component {
               return (
               <>
                 {aboutMeData.map((item, i) => (
-                  <Box ref={setRef(i)} pose={poseClass(activeIndex, i)} className="row flex-align-start justify-end fh">
+                  <Box key={i} ref={setRef(i)} pose={poseClass(activeIndex, i)} className="row flex-align-start justify-end fh">
                     {item.title()}
                     <Text className="col-md-6">
                       {item.text}
