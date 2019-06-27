@@ -29,5 +29,4 @@ export const Box = posed.div({
     y: '100%',
     transition: boxTransition,
   },
-
 });

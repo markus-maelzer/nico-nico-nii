@@ -18,13 +18,13 @@ class Projects extends Component {
             return (
             <>
               <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
-                <Title>
+                <Title className={`outline ${activeIndex === 0 ? 'anim' : ''}`}>
                   a media designer
                   from Villach, Austria
                 </Title>
               </Box>
               <Box ref={setRef(1)} pose={poseClass(activeIndex, 1)}>
-                <Title>
+                <Title className={`outline ${activeIndex === 1 ? 'anim' : ''}`}>
                   these are<br /> my <span className="accent">Projects</span>
                 </Title>
               </Box>
