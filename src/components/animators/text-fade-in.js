@@ -16,7 +16,7 @@ const charPoses = {
   }
 };
 
-export const TextFadeIn = ({ visible, children, timeout=1000 }) =>  (
+export const TextFadeIn = ({ visible, children, timeout=0 }) =>  (
   <SplitText
     initialPose="exit"
     pose={visible ? 'enter' : 'exit'}

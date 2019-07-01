@@ -31,7 +31,7 @@ class Projects extends Component {
               <>
                 <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
                   <Title className={`outline ${activeIndex === 0 ? 'anim' : ''}`}>
-                    <TextFadeIn visible={activeIndex === 0}>
+                    <TextFadeIn visible={activeIndex === 0}  timeout={500}>
                       a media designer
                       from Villach, Austria
                     </TextFadeIn>
