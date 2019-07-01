@@ -133,7 +133,7 @@ export class ScrollSlider extends Component {
     const { height } = this.state;
     const { setRef, state, poseClass } = this
     return (
-      <div className="scrolltainer noscroll" style={{ height }}>
+      <div className={`scrolltainer noscroll ${this.props.className}`} style={{ height }}>
         {this.props.children({setRef, poseClass}, state)}
       </div>
     );
