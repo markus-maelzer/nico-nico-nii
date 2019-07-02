@@ -1,8 +1,8 @@
 //main: ../index.scss
 
 .color-overlay {
-  max-width: 450px;
   overflow: hidden;
+  
   &:before, &:after {
     transition: 0.3s ease;
     content: "";

@@ -31,6 +31,14 @@
   margin-top: 0 !important;
 }
 
+.main-content {
+  padding: 0 16px;
+
+  @include respond-to($medium) {
+    padding: 0 calc(4vw + 20px)
+  };
+}
+
 .container {
   width: 100%;
   max-width: 1200px;

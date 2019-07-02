@@ -1,0 +1,20 @@
+//main: ../index.scss
+
+.project {
+  padding-left: calc(3rem + 20px);
+
+  .main-title {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+  }
+
+  &:nth-of-type(even) {
+    align-self: flex-end;
+    text-align: right;
+    padding-left: 0;
+    padding-right: calc(3rem + 20px);
+  }
+}

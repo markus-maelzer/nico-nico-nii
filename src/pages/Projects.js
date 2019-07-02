@@ -14,62 +14,80 @@ const imgLink = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/50532
 class Projects extends Component {
 
   render() {
+    const { loaded } = this.props;
     return (
-      <div>
-        <div className="container-big">
-          <Title>
-            <TextFadeIn visible={true}>Hey,</TextFadeIn>
-            <br />
-            <TextFadeIn visible={true}>I’m Nicolas</TextFadeIn>
-            <span className="accent">
-              <TextFadeIn visible={true}>Cetl,</TextFadeIn>
-            </span>
-          </Title>
-          <ScrollSlider totalSlides={2}>
-            {({setRef, poseClass}, {activeIndex, init}) => {
-              return (
-              <>
-                <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
-                  <Title className={`outline ${activeIndex === 0 ? 'anim' : ''}`}>
-                    <TextFadeIn visible={activeIndex === 0}  timeout={500}>
-                      a media designer
-                      from Villach, Austria
-                    </TextFadeIn>
-                  </Title>
-                </Box>
-                <Box ref={setRef(1)} pose={poseClass(activeIndex, 1)}>
-                  <Title className={`outline ${activeIndex === 1 ? 'anim' : ''}`}>
-                    <TextFadeIn visible={activeIndex === 1}>
-                    these are</TextFadeIn><br />
-                    <TextFadeIn visible={activeIndex === 1}>
-                    my </TextFadeIn>
-                    <span className="accent">
-                    <TextFadeIn visible={activeIndex === 1}>
-                    Projects</TextFadeIn>
-                     </span>
-                  </Title>
-                </Box>
-              </>
-            )
-          }}
-          </ScrollSlider>
+      <>
+        <section>
+          <div className="container-big">
+            <Title>
+              <TextFadeIn visible={loaded}>Hey,</TextFadeIn>
+              <br />
+              <TextFadeIn visible={loaded}>I’m Nicolas</TextFadeIn>
+              <span className="accent">
+                <TextFadeIn visible={loaded}>Cetl,</TextFadeIn>
+              </span>
+            </Title>
+            <ScrollSlider totalSlides={2}>
+              {({setRef, poseClass}, {activeIndex, init}) => {
+                return (
+                <>
+                  <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
+                    <Title className={`outline ${activeIndex === 0 ? 'anim' : ''}`}>
+                      <TextFadeIn visible={activeIndex === 0 && loaded}  timeout={500}>
+                        a media designer
+                        from Villach, Austria
+                      </TextFadeIn>
+                    </Title>
+                  </Box>
+                  <Box ref={setRef(1)} pose={poseClass(activeIndex, 1)}>
+                    <Title className={`outline ${activeIndex === 1 ? 'anim' : ''}`}>
+                      <TextFadeIn visible={activeIndex === 1}>
+                      these are</TextFadeIn><br />
+                      <TextFadeIn visible={activeIndex === 1}>
+                      my </TextFadeIn>
+                      <span className="accent">
+                      <TextFadeIn visible={activeIndex === 1}>
+                      Projects</TextFadeIn>
+                       </span>
+                    </Title>
+                  </Box>
+                </>
+              )
+            }}
+            </ScrollSlider>
+          </div>
+        </section>
+        <div className="container-big column justify-space-between">
+          <InView>
+            {({ inView, ref, entry }) => (
+              <div className="col-md-8 project" ref={ref}>
+                <Title>
+                  <TextFadeIn visible={inView} timeout={600}>
+                    Freetime
+                  </TextFadeIn>
+                </Title>
+                <ColorOverlay visible={inView}>
+                  <img src={imgLink} alt="" />
+                </ColorOverlay>
+              </div>
+            )}
+          </InView>
+          <InView threshold={0.3}>
+            {({ inView, ref, entry }) => (
+              <div className="col-md-8 project" ref={ref}>
+                <Title>
+                  <TextFadeIn visible={inView} timeout={600}>
+                    Land Kärnten
+                  </TextFadeIn>
+                </Title>
+                <ColorOverlay visible={inView}>
+                  <img src={imgLink} alt="" />
+                </ColorOverlay>
+              </div>
+            )}
+          </InView>
         </div>
-        <div className="fh-v"></div>
-        <InView>
-          {({ inView, ref, entry }) => (
-            <div ref={ref}>
-              <Title>
-                <TextFadeIn visible={inView}>
-                  Freetime
-                </TextFadeIn>
-              </Title>
-              <ColorOverlay visible={inView}>
-                <img src={imgLink} alt="" />
-              </ColorOverlay>
-            </div>
-          )}
-        </InView>
-      </div>
+      </>
     );
   }
 }

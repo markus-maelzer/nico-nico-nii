@@ -26,7 +26,7 @@ span {
 .main-title {
   font-size: 35px;
   @include respond-to($medium-large) {
-    font-size: calc(4.5vw + 4rem);
+    font-size: calc(5vw + 3rem);
     line-height: 1.0625;
   };
   padding-bottom: 20px;

@@ -3,3 +3,4 @@ export * from './footer'
 export * from './scroll-slider';
 export * from './typography';
 export * from './animators';
+export * from './hocs';

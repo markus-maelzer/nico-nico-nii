@@ -90,9 +90,9 @@ section {
 
 
   @include respond-to($medium) {
-    padding: 40px calc(40px + 4vw);
+    padding: 40px 0 400px;
     &.mp {
-      padding: 100px calc(40px + 4vw) 100px;
+      padding: 100px 0 100px;
     }
   };
 
