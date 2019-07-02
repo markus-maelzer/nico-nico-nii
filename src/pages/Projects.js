@@ -27,15 +27,16 @@ class Projects extends Component {
                 <TextFadeIn visible={loaded}>Cetl,</TextFadeIn>
               </span>
             </Title>
-            <ScrollSlider totalSlides={2}>
+
+            <ScrollSlider totalSlides={2} scrollLock={false}>
               {({setRef, poseClass}, {activeIndex, init}) => {
                 return (
                 <>
                   <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
                     <Title className={`outline ${activeIndex === 0 ? 'anim' : ''}`}>
-                      <TextFadeIn visible={activeIndex === 0 && loaded}  timeout={500}>
+                      <TextFadeIn visible={activeIndex === 0 && loaded}>
                         a media designer
-                        from Villach, Austria
+                        from Vienna, Austria
                       </TextFadeIn>
                     </Title>
                   </Box>
@@ -58,7 +59,7 @@ class Projects extends Component {
           </div>
         </section>
         <div className="container-big column justify-space-between">
-          <InView>
+          <InView triggerOnce>
             {({ inView, ref, entry }) => (
               <div className="col-md-8 project" ref={ref}>
                 <Title>
@@ -72,7 +73,7 @@ class Projects extends Component {
               </div>
             )}
           </InView>
-          <InView threshold={0.3}>
+          <InView threshold={0.3} triggerOnce>
             {({ inView, ref, entry }) => (
               <div className="col-md-8 project" ref={ref}>
                 <Title>

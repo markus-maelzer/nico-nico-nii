@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // TODO: ScrollSlider fix scroll handler when height of body is not enoght to scroll
-
+// +  add always lock scroll
 export class ScrollSlider extends Component {
   state = {
     stopScroll: false,
@@ -15,6 +15,7 @@ export class ScrollSlider extends Component {
   test = [];
 
   componentDidMount() {
+    // BUG: window.pageYOffset is 0 if page didnt load yet ._.
     if (window.pageYOffset <= this.props.stopScrollAt) {
       this.disableScroll();
     } else {
@@ -45,11 +46,11 @@ export class ScrollSlider extends Component {
   handleScroll = () => {
     if(window.pageYOffset <= this.props.stopScrollAt) {
       this.disableScroll();
+      this.handleWheel({deltaY: -100})
     }
   }
 
   handleTouchStart = (e) => {
-    // console.log(e);
     this.setState({
       touchStartPos: e.changedTouches[0].clientY,
     })
@@ -100,8 +101,8 @@ export class ScrollSlider extends Component {
     this.handleAnimating();
   }
 
-  handleWheel = (e) => {
-    this.handleSlides(e.deltaY, 0);
+  handleWheel = ({ deltaY }) => {
+    this.handleSlides(deltaY, 0);
   }
 
   setRef = (indicator) => (el) => {
@@ -142,7 +143,7 @@ export class ScrollSlider extends Component {
 
 
 ScrollSlider.defaultProps = {
-  animTimeout: 500,
+  animTimeout: 300,
   totalSlides: 2,
   stopScrollAt: 0,
 }

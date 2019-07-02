@@ -8,11 +8,16 @@ const charPoses = {
   enter: {
     y: 0,
     opacity: 1,
-    transition: ({ charInWordIndex, timeout }) => ({
-      timeout: 1000,
-      type: 'tween',
-      delay: (charInWordIndex * 100) + timeout,
-    })
+    transition: ({ charInWordIndex, timeout, duration=300}) => {
+      // console.log(props);
+      return ({
+        timeout: 1000,
+        type: 'tween',
+        easing: 'anticipate',
+        delay: (charInWordIndex * 100) + timeout,
+        duration,
+      })
+    }
   }
 };
 

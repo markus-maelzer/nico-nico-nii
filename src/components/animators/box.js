@@ -3,7 +3,7 @@ import posed from 'react-pose';
 const boxTransition = {
   type: 'tween',
   ease: 'easeIn',
-  duration: 400,
+  duration: 300,
 }
 export const Box = posed.div({
   outTop: {
