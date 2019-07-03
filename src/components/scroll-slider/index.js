@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 // TODO: ScrollSlider fix scroll handler when height of body is not enoght to scroll
 // +  add always lock scroll
+// +  detHeight on resize
+
 export class ScrollSlider extends Component {
   state = {
     stopScroll: false,
@@ -16,6 +18,13 @@ export class ScrollSlider extends Component {
 
   componentDidMount() {
     // BUG: window.pageYOffset is 0 if page didnt load yet ._.
+    if(document.readyState === 'complete') {
+      return this.init();
+    }
+    window.addEventListener('load',this.init);
+  }
+
+  init = () => {
     if (window.pageYOffset <= this.props.stopScrollAt) {
       this.disableScroll();
     } else {
@@ -24,11 +33,12 @@ export class ScrollSlider extends Component {
       })
     }
     window.addEventListener('scroll', this.handleScroll);
-    // TODO: detHeight on resize
     this.detHeight();
   }
+
   componentWillUnmount() {
     this.enableScroll();
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   disableScroll = () => {

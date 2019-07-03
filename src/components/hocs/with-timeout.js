@@ -7,10 +7,8 @@ export const WithTimeout = function (WrappedComponent, timeout = 1000) {
     }
 
     componentDidMount() {
-
       window.addEventListener('load', () => {
         setTimeout(() => {
-          console.log('hi');
           this.setState({
             loaded: true,
           })
@@ -37,19 +35,25 @@ export const WindowLoaded = function (WrappedComponent, timeout = 0) {
     }
 
     componentDidMount() {
-      console.log('mount');
-      console.log(window);
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          this.setState({
-            loaded: true,
-          })
-        }, timeout);
-      })
+      if(document.readyState === 'complete') {
+        return this.timeout();
+      }
+      window.addEventListener('load', this.timeout)
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('load', this.timeout)
+    }
+
+    timeout = () => {
+      setTimeout(() => {
+        this.setState({
+          loaded: true,
+        })
+      }, timeout);
     }
 
     render() {
-      console.log(this.props);
       const { loaded } = this.state;
       return <WrappedComponent
         loaded={loaded}
