@@ -24,6 +24,7 @@ export class ScrollSlider extends Component {
       })
     }
     window.addEventListener('scroll', this.handleScroll);
+    // TODO: detHeight on resize
     this.detHeight();
   }
   componentWillUnmount() {
@@ -108,6 +109,7 @@ export class ScrollSlider extends Component {
   setRef = (indicator) => (el) => {
     this.test[indicator] = el;
   }
+
 
   detHeight = () => {
     if(this.test.length === 0) return 'auto';
