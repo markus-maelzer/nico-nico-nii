@@ -45,7 +45,9 @@ export default class AboutMe extends Component {
         <div className="container-big fh-v">
           <div className="col-md-6 align-right">
             <Title>
-              about my
+              <TextFadeIn visible={loaded}>
+                about my
+              </TextFadeIn>
             </Title>
           </div>
           <ScrollSlider totalSlides={aboutMeData.length}>
