@@ -5,6 +5,14 @@ import PropTypes from 'prop-types';
 // +  add always lock scroll
 // +  detHeight on resize
 
+// + add earlier scrollability
+//   -> wenn letzter slide animiert wird
+//   -> already unlock scroll
+
+// + wheel and touch events need to be always active
+
+// + handle Resize >_>_>_>_>_>_>
+
 export class ScrollSlider extends Component {
   state = {
     stopScroll: false,
@@ -17,11 +25,11 @@ export class ScrollSlider extends Component {
   test = [];
 
   componentDidMount() {
-    // BUG: window.pageYOffset is 0 if page didnt load yet ._.
+    // BUG: window.pageYOffset is 0 if page didnt load yet ._. i think its fixed
     if(document.readyState === 'complete') {
       return this.init();
     }
-    window.addEventListener('load',this.init);
+    window.addEventListener('load', this.init);
   }
 
   init = () => {
@@ -83,24 +91,29 @@ export class ScrollSlider extends Component {
     }
   }
 
-  handleAnimating = () => {
+  handleAnimating = (callback=() => {}) => {
     this.setState({animating: true})
     this.animTimeout = setTimeout(() => {
-      this.setState({animating: false})
+      this.setState({animating: false}, callback)
     }, this.props.animTimeout);
   }
 
   nextSlide = () => {
     const { activeIndex } = this.state;
     const { totalSlides } = this.props
-
-    if(activeIndex < totalSlides - 1 )
+    console.log(activeIndex, totalSlides - 1);
+    if(activeIndex < totalSlides - 2 ) {
       this.setState({ activeIndex: activeIndex + 1 })
-    else
+    } else if(activeIndex <= totalSlides - 2) {
+      this.setState({ activeIndex: activeIndex + 1 })
+      return this.handleAnimating(this.enableScroll);
+    } else {
       this.enableScroll();
+    }
 
     this.handleAnimating();
   }
+
   prevSlide = () => {
     const { activeIndex } = this.state;
 

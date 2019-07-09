@@ -13,9 +13,9 @@ class Router extends Component {
     return (
       <>
         <Route path="/" component={MainWrapper} />
-        <div className="main-content">        
+        <div className="main-content">
           <Switch>
-            <Route path="/about-me" component={AboutMe} />
+            <Route path="/about-me" component={WindowLoaded(AboutMe, 400)} />
             <Route path="/" component={WindowLoaded(Projects, 400)} />
           </Switch>
         </div>

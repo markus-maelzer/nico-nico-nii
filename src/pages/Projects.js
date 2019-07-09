@@ -17,14 +17,14 @@ class Projects extends Component {
     const { loaded } = this.props;
     return (
       <>
-        <section>
+        <section className="fh-v row justify-center flex-align-center nopt">
           <div className="container-big">
             <Title>
               <TextFadeIn visible={loaded}>Hey,</TextFadeIn>
               <br />
               <TextFadeIn visible={loaded}>I’m Nicolas</TextFadeIn>
               <span className="accent">
-                <TextFadeIn visible={loaded}>Cetl,</TextFadeIn>
+                <TextFadeIn visible={loaded}> Cetl,</TextFadeIn>
               </span>
             </Title>
 
@@ -36,6 +36,9 @@ class Projects extends Component {
                     <Title className={`outline ${activeIndex === 0 ? 'anim' : ''}`}>
                       <TextFadeIn visible={activeIndex === 0 && loaded}>
                         a media designer
+                      </TextFadeIn>
+                      <br />
+                      <TextFadeIn visible={activeIndex === 0 && loaded}>
                         from Vienna, Austria
                       </TextFadeIn>
                     </Title>
