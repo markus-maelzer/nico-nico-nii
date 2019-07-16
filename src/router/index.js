@@ -9,6 +9,19 @@ import Projects from '../pages/Projects';
 import { Footer, WindowLoaded } from '../components';
 
 class Router extends Component {
+  componentDidMount() {
+    this.handleScrollbarWiggle();
+  }
+
+  handleScrollbarWiggle = () => {
+    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+
+    if (!isChrome && !isSafari) {
+      document.body.add('no-webkit');
+    }
+  }
+
   render() {
     return (
       <>

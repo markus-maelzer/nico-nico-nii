@@ -8,6 +8,7 @@ html {
   @include respond-to($extra-large) {
     font-size: 17px;
   };
+  background-color: $color-primary;
 }
 
 body {
@@ -26,6 +27,10 @@ body {
   }
   &.noscroll {
     overflow: hidden;
+    padding-right: 8px;
+  }
+  &.no-webkit.noscroll {
+    padding-right: 17px;
   }
   &.after-loaded {
     position: static;

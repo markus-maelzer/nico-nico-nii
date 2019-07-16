@@ -53,10 +53,10 @@ export class ScrollSlider extends Component {
     window.addEventListener('wheel', this.handleWheel, { passive: true });
     window.addEventListener('touchstart', this.handleTouchStart);
     window.addEventListener('touchend', this.handleTouchEnd);
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('noscroll');
   }
   enableScroll = () => {
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('noscroll');
     window.removeEventListener('wheel', this.handleWheel, { passive: true });
     window.removeEventListener('touchstart', this.handleTouchStart);
     window.removeEventListener('touchend', this.handleTouchEnd);
