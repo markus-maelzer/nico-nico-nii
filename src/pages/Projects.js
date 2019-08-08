@@ -8,6 +8,8 @@ import {
   Box, ColorOverlay,
   TextFadeIn
 } from '../components';
+import { log } from 'util';
+import { longStackSupport } from 'q';
 
 const GenerateApiUrls = function() {
   const DOMAIN = 'http://markusmaelzer-at.stackstaging.com';
@@ -35,16 +37,17 @@ class Projects extends Component {
   }
 
   renderProjects = () => {
+    const { loaded } = this.props;
     return this.state.projects.map((project, i) => (
       <InView triggerOnce  key={project._id}>
         {({ inView, ref, entry }) => (
           <div className="col-md-8 project" ref={ref}>
             <Title>
-              <TextFadeIn visible={inView} timeout={600}>
+              <TextFadeIn visible={inView && loaded} timeout={600}>
                 {project.title}
               </TextFadeIn>
             </Title>
-            <ColorOverlay visible={inView}>
+            <ColorOverlay visible={inView && loaded}>
               <img src={API_URL.DOMAIN + project.img.path} alt={project.title} />
             </ColorOverlay>
           </div>
@@ -70,6 +73,7 @@ class Projects extends Component {
 
             <ScrollSlider totalSlides={2} scrollLock={false}>
               {({setRef, poseClass}, {activeIndex, init}) => {
+                console.log(poseClass(0));
                 return (
                 <>
                   <Box ref={setRef(0)} pose={poseClass(activeIndex, 0)}>
