@@ -2,10 +2,12 @@
 
 .project {
   padding-left: calc(3rem + 20px);
+  margin-top: calc(-60px);
+  z-index: 1;
 
   .main-title {
     position: absolute;
-    top: 30px;
+    top: 50px;
     left: 0;
     z-index: 10;
     width: 100%;
@@ -16,5 +18,9 @@
     text-align: right;
     padding-left: 0;
     padding-right: calc(3rem + 20px);
+  }
+
+  &:nth-of-type(2) {
+    z-index: 0;
   }
 }
