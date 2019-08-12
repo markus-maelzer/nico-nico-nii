@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { InView } from 'react-intersection-observer';
 import axios from 'axios';
+import Plx from 'react-plx';
+
+import { DelayLink } from "../router/delay-link";
 
 import {
   Title, ScrollSlider,
   Box, ColorOverlay,
   TextFadeIn
 } from '../components';
-import { log } from 'util';
-import { longStackSupport } from 'q';
 
 const GenerateApiUrls = function() {
   const DOMAIN = 'http://markusmaelzer-at.stackstaging.com';
@@ -21,6 +22,20 @@ const GenerateApiUrls = function() {
 }
 
 export const API_URL = new GenerateApiUrls();
+
+const parallaxData = [
+  {
+    start: 0,
+    end: window.innerHeight,
+    properties: [
+      {
+        startValue: 1,
+        endValue: 1.4,
+        property: 'scale',
+      },
+    ],
+  },
+];
 
 
 // const imgLink = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/50532ae6-dd17-46cd-832b-491558fe64ad/dag69ua-d77e67e1-942f-4ae0-bc1e-da6cad0bf6df.png/v1/fill/w_1141,h_700,q_70,strp/darker_thank_black_hei_low_poly_wallpaper_by_flapoly_dag69ua-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTgyIiwicGF0aCI6IlwvZlwvNTA1MzJhZTYtZGQxNy00NmNkLTgzMmItNDkxNTU4ZmU2NGFkXC9kYWc2OXVhLWQ3N2U2N2UxLTk0MmYtNGFlMC1iYzFlLWRhNmNhZDBiZjZkZi5wbmciLCJ3aWR0aCI6Ijw9MTYwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.jRo5eVKiIruXWBT5NjYqbJxQu1yGFICIAvK7zoCMZvs";
@@ -36,21 +51,30 @@ class Projects extends Component {
     })
   }
 
+  // TODO: put this into Projects reducer
+  formatTitle = (string) => string.trim().toLowerCase()
+                            .replace().split(' ').join('-');
+
+  // TODO: make this into its own component 
   renderProjects = () => {
-    const { loaded } = this.props;
+    const { loaded, unload } = this.props;    
     return this.state.projects.map((project, i) => (
-      <InView triggerOnce  key={project._id}>
+      <InView triggerOnce key={project._id}>
         {({ inView, ref, entry }) => (
-          <div className="col-md-8 project" ref={ref}>
+          <DelayLink className="col-md-8 project" innerRef={ref}
+          delay={500} onDelayStart={unload}
+          to={`/projects/${this.formatTitle(project.title)}-${project._id}`}>
             <Title>
               <TextFadeIn visible={inView && loaded} timeout={600}>
                 {project.title}
               </TextFadeIn>
             </Title>
             <ColorOverlay visible={inView && loaded}>
-              <img src={API_URL.DOMAIN + project.img.path} alt={project.title} />
+              <Plx parallaxData={parallaxData}>
+                <img src={API_URL.DOMAIN + project.img.path} alt={project.title} />
+              </Plx>
             </ColorOverlay>
-          </div>
+          </DelayLink>
         )}
       </InView>
     ))
@@ -71,7 +95,7 @@ class Projects extends Component {
               </span>
             </Title>
 
-            <ScrollSlider totalSlides={2} scrollLock={false}>
+            <ScrollSlider totalSlides={2} scrollLock={false} reLockSlider={false}>
               {({setRef, poseClass}, {activeIndex, init}) => {
                 console.log(poseClass(0));
                 return (
@@ -107,20 +131,6 @@ class Projects extends Component {
         </section>
         <div className="container-big column justify-space-between">
           {this.renderProjects()}
-          {/* <InView threshold={0.3} triggerOnce>
-            {({ inView, ref, entry }) => (
-              <div className="col-md-8 project" ref={ref}>
-                <Title>
-                  <TextFadeIn visible={inView} timeout={600}>
-                    Land Kärnten
-                  </TextFadeIn>
-                </Title>
-                <ColorOverlay visible={inView}>
-                  <img src={imgLink} alt="" />
-                </ColorOverlay>
-              </div>
-            )}
-          </InView> */}
         </div>
       </>
     );

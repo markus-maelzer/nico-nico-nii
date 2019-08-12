@@ -55,7 +55,7 @@ export class ScrollSlider extends Component {
     window.addEventListener('touchend', this.handleTouchEnd);
     document.body.classList.add('noscroll');
   }
-  enableScroll = () => {
+  enableScroll = () => {   
     document.body.classList.remove('noscroll');
     window.removeEventListener('wheel', this.handleWheel, { passive: true });
     window.removeEventListener('touchstart', this.handleTouchStart);
@@ -64,6 +64,7 @@ export class ScrollSlider extends Component {
 
   handleScroll = () => {
     if(window.pageYOffset <= this.props.stopScrollAt) {
+      if(!this.props.reLockSlider) return;
       this.disableScroll();
       this.handleWheel({deltaY: -100})
     }
@@ -171,6 +172,7 @@ ScrollSlider.defaultProps = {
   animTimeout: 300,
   totalSlides: 2,
   stopScrollAt: 0,
+  reLockSlider: true,
 }
 
 ScrollSlider.propTypes = {

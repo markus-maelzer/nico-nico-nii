@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
 
 import { rootReducer as reducer} from './redux';
-import Router from './router';
+import MainRouter from './router';
 
 // const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 const composeReduxMiddlewares = () => {
@@ -34,7 +34,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Router />
+      <MainRouter />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

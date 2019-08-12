@@ -5,10 +5,11 @@ import MainWrapper from '../components/main-wrapper';
 
 import AboutMe from '../pages/AboutMe';
 import Projects from '../pages/Projects';
+import ProjectsSingle from '../pages/ProjectsSingle'
 
 import { Footer, WindowLoaded } from '../components';
 
-class Router extends Component {
+export default class MainRouter extends Component {
   componentDidMount() {
     this.handleScrollbarWiggle();
   }
@@ -28,8 +29,9 @@ class Router extends Component {
         <Route path="/" component={MainWrapper} />
         <div className="main-content">
           <Switch>
+            <Route path="/projects/:id" component={WindowLoaded(ProjectsSingle, 400)} />            
             <Route path="/about-me" component={WindowLoaded(AboutMe, 400)} />
-            <Route path="/" component={WindowLoaded(Projects, 400)} />
+            <Route exact path="/" component={WindowLoaded(Projects, 400)} />
           </Switch>
         </div>
         <Footer />
@@ -38,4 +40,4 @@ class Router extends Component {
   }
 }
 
-export default Router;
+ 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 
-export default class DelayLink extends React.Component {
+export class DelayLink extends React.Component {
   static propTypes = {
     delay:        PropTypes.number,
     onDelayStart: PropTypes.func,
@@ -28,7 +28,8 @@ export default class DelayLink extends React.Component {
     const { replace, to, delay, onDelayStart, onDelayEnd } = this.props;
     const { history } = this.context.router;
     // window.scrollTo({top: 1200, behavior: 'smooth'});
-
+    console.log(onDelayStart);
+    
     onDelayStart(e, to);
     if (e.defaultPrevented) {
       return;

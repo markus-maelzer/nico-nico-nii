@@ -32,20 +32,6 @@ body {
   &.no-webkit.noscroll {
     padding-right: 17px;
   }
-  &.after-loaded {
-    position: static;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      background-color: #fff;
-    }
-
-  }
-  &.loc-modal {
-    overflow-y: hidden;
-    position: fixed;
-    width: 100%;
-    overflow-y: hidden;
-  }
 }
 
 

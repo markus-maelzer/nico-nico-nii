@@ -53,10 +53,17 @@ export const WindowLoaded = function (WrappedComponent, timeout = 0) {
       }, timeout);
     }
 
+    unload = () => {
+      console.log('test');
+      
+      this.setState({loaded: false});
+    } 
+
     render() {
       const { loaded } = this.state;
       return <WrappedComponent
         loaded={loaded}
+        unload={this.unload}
         {...this.props}
       />
     }
