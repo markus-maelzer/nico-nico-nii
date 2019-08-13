@@ -25,8 +25,9 @@ export const API_URL = new GenerateApiUrls();
 
 const parallaxData = [
   {
-    start: 0,
-    end: window.innerHeight,
+    start: 'self',
+    duration: window.innerHeight,
+    easing: 'easeOut',
     properties: [
       {
         startValue: 1,
