@@ -31,3 +31,8 @@
     }
   }
 }
+.Plx {
+  &--active, &--above, &--below {
+    transition: 0.9s ease-out;
+  }
+}
