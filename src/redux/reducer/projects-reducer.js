@@ -1,12 +1,16 @@
+import { FETCH_PROJECTS, FETCH_SINGLE_PROJECT } from "../types";
+
 const initState = {
-  scrollpos: 0,
-  projectList: {},
+  projects: [{test: 'hi'}],
 }
 
 export const projectsReducer = (state = initState, action) => {
+  
   switch (action.type) {
-    case 'scrollpos':
-      return action.scrollpos;
+    case FETCH_PROJECTS:
+      return [...action.data.entries];
+    case FETCH_SINGLE_PROJECT:
+      return [...action.data.entries];
     default:
       return state;
   }

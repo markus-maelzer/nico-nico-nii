@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { InView } from 'react-intersection-observer';
 import axios from 'axios';
-import Plx from 'react-plx';
+import { fetch } from '../redux/actions';
+import { FETCH_PROJECTS } from '../redux/types';
 
 import { DelayLink } from "../router/delay-link";
 
@@ -23,20 +24,20 @@ const GenerateApiUrls = function() {
 
 export const API_URL = new GenerateApiUrls();
 
-const parallaxData = [
-  {
-    start: 'self',
-    duration: window.innerHeight,
-    easing: 'easeOut',
-    properties: [
-      {
-        startValue: 1,
-        endValue: 1.4,
-        property: 'scale',
-      },
-    ],
-  },
-];
+// const parallaxData = [
+//   {
+//     start: 'self',
+//     duration: window.innerHeight,
+//     easing: 'easeOut',
+//     properties: [
+//       {
+//         startValue: 1,
+//         endValue: 1.4,
+//         property: 'scale',
+//       },
+//     ],
+//   },
+// ];
 
 
 // const imgLink = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/50532ae6-dd17-46cd-832b-491558fe64ad/dag69ua-d77e67e1-942f-4ae0-bc1e-da6cad0bf6df.png/v1/fill/w_1141,h_700,q_70,strp/darker_thank_black_hei_low_poly_wallpaper_by_flapoly_dag69ua-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTgyIiwicGF0aCI6IlwvZlwvNTA1MzJhZTYtZGQxNy00NmNkLTgzMmItNDkxNTU4ZmU2NGFkXC9kYWc2OXVhLWQ3N2U2N2UxLTk0MmYtNGFlMC1iYzFlLWRhNmNhZDBiZjZkZi5wbmciLCJ3aWR0aCI6Ijw9MTYwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.jRo5eVKiIruXWBT5NjYqbJxQu1yGFICIAvK7zoCMZvs";
@@ -45,11 +46,13 @@ class Projects extends Component {
     projects: [],
   }
   componentDidMount() {
-    axios.get(API_URL.collection('projects')).then(({data}) => {
-      this.setState({
-        projects: data.entries
-      })
-    })
+    this.props.fetch(FETCH_PROJECTS, API_URL.collection('projects'));
+    // axios.get(API_URL.collection('projects')).then(({data}) => {
+    //   console.log(data.entries);
+    //   this.setState({
+    //     projects: data.entries
+    //   })
+    // })
   }
 
   // TODO: put this into Projects reducer
@@ -58,12 +61,13 @@ class Projects extends Component {
 
   // TODO: make this into its own component 
   renderProjects = () => {
-    const { loaded, unload } = this.props;    
-    return this.state.projects.map((project, i) => (
-      <InView triggerOnce key={project._id}>
+    const { loaded, unload, projects } = this.props;    
+    if(!projects) return;
+    return projects.map((project, i) => (
+      <InView triggerOnce threshold={0.1} key={project._id}>
         {({ inView, ref, entry }) => (
           <DelayLink className="col-md-8 project" innerRef={ref}
-          delay={500} onDelayStart={unload}
+          delay={700} onDelayStart={unload}
           to={`/projects/${this.formatTitle(project.title)}-${project._id}`}>
             <Title>
               <TextFadeIn visible={inView && loaded} timeout={600}>
@@ -71,9 +75,9 @@ class Projects extends Component {
               </TextFadeIn>
             </Title>
             <ColorOverlay visible={inView && loaded}>
-              <Plx parallaxData={parallaxData}>
+              {/* <Plx parallaxData={parallaxData}> */}
                 <img src={API_URL.DOMAIN + project.img.path} alt={project.title} />
-              </Plx>
+              {/* </Plx> */}
             </ColorOverlay>
           </DelayLink>
         )}
@@ -82,6 +86,8 @@ class Projects extends Component {
   }
 
   render() {
+    console.log(this.props.projects);
+    
     const { loaded } = this.props;
     return (
       <>
@@ -139,10 +145,12 @@ class Projects extends Component {
 }
 
 const mapStateToProps = ({ projects }) => {
+  console.log(projects);
+  
   return {projects};
 }
 
 export default connect(
   mapStateToProps,
-  null
+  { fetch }
 )(Projects);
