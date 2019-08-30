@@ -5,7 +5,6 @@ const initState = {
 }
 
 export const projectsReducer = (state = initState, action) => {
-  
   switch (action.type) {
     case FETCH_PROJECTS:
       return [...action.data.entries];
