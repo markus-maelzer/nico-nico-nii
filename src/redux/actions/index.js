@@ -7,7 +7,7 @@ function determine(type, data) {
   }
 }
 
-function fetch(type, url) {
+function fetch(type, url) { 
   return dispatch =>
   axios.get(url)
   .then(response => {    
@@ -18,7 +18,20 @@ function fetch(type, url) {
   })
 }
 
+function fetchQuery(type, url, options) { 
+  return dispatch =>
+  axios.post(url,options)
+  .then(response => {    
+    dispatch(determine(type, response.data));
+  })
+  .catch(e => {
+    return;
+  })
+}
+
 export {
   fetch,
+  fetchQuery,
   determine,
 }
+export * from './api-url';

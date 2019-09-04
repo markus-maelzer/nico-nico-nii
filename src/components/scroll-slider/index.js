@@ -102,7 +102,6 @@ export class ScrollSlider extends Component {
   nextSlide = () => {
     const { activeIndex } = this.state;
     const { totalSlides } = this.props
-    console.log(activeIndex, totalSlides - 1);
     if(activeIndex < totalSlides - 2 ) {
       this.setState({ activeIndex: activeIndex + 1 })
     } else if(activeIndex <= totalSlides - 2) {
