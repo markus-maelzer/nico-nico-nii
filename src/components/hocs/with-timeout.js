@@ -55,7 +55,6 @@ export const WindowLoaded = function (WrappedComponent, timeout = 0) {
 
     unload = () => {
       console.log('test');
-      
       this.setState({loaded: false});
     } 
 

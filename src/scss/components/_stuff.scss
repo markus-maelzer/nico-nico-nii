@@ -4,7 +4,7 @@
   overflow: hidden;
   
   &:before, &:after {
-    transition: 0.3s ease;
+    transition: .4s cubic-bezier(0.77, 0, 0.175, 1);
     content: "";
     position: absolute;
     top:0;
@@ -24,7 +24,7 @@
   &.visible {
     &:after, &:before {
       transform: translateY(100%);
-      transition: 0.4s ease 0.3s;
+      transition: 1s cubic-bezier(0.77, 0, 0.175, 1) 0.3s;
     }
     &:after {
       transition-delay: 0.7s;

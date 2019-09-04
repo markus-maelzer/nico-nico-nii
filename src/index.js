@@ -11,12 +11,12 @@ import reduxThunk from 'redux-thunk';
 import { rootReducer as reducer} from './redux';
 import MainRouter from './router';
 
-// const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 const composeReduxMiddlewares = () => {
   if(process.env.NODE_ENV === 'development') {
     return compose(
       applyMiddleware(reduxThunk),
-      // reduxDevTools
+      reduxDevTools
     )
   } else {
     return compose(
