@@ -8,6 +8,7 @@ import Projects from '../pages/Projects';
 import ProjectsSingle from '../pages/ProjectsSingle'
 
 import { Footer, WindowLoaded } from '../components';
+import { FollowCircle }  from '../components/follow-circle';
 
 export default class MainRouter extends Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ export default class MainRouter extends Component {
   render() {
     return (
       <>
+      <FollowCircle />
         <Route path="/" component={MainWrapper} />
         <div className="main-content">
           <Switch>
