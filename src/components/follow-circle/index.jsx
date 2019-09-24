@@ -1,15 +1,7 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  useState,
-  useRef,
-  useEffect
-} from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
+import { FollowCircleContext } from './follow-circle-store';
+export * from './follow-circle-store';
 
-export const FollowCircleContext = createContext({
-  stuck: false
-});
 // use context to make a wrapper that can change the stat of the circle
 const lerp = (a, b, n) => {
   return (1 - n) * a + n * b;
@@ -17,15 +9,16 @@ const lerp = (a, b, n) => {
 
 export const FollowCircle = props => {
   const circleRef = useRef(null);
-  const [state, setState] = useState({
-    stuck: false
-  });
-  const { stuck } = state;
-
   let clientX = -100;
   let clientY = -100;
   let lastX = clientX;
   let lastY = clientY;
+
+  const { stuck, position, sticky, stickyRadius, animationState } = useContext(
+    FollowCircleContext
+  );
+
+  console.log(animationState);
 
   const render = () => {
     if (stuck) {
@@ -50,7 +43,7 @@ export const FollowCircle = props => {
   }, {});
 
   return (
-    <div className="circle" ref={circleRef}>
+    <div className={`circle ${animationState}`} ref={circleRef}>
       <div className="circle__content"></div>
     </div>
   );

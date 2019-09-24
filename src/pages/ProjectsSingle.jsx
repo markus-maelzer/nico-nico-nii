@@ -5,53 +5,42 @@ import { InView } from 'react-intersection-observer';
 import { fetchQuery, API_URL } from '../redux/actions';
 import { FETCH_PROJECTS_SINGLE } from '../redux/types';
 
-import {
-  Title, ColorOverlay,
-  TextFadeIn
-} from '../components';
-import { log } from 'util';
+import { Title, ColorOverlay, TextFadeIn } from '../components';
 
 function getId(text) {
-  return text.slice((text.lastIndexOf('-') + 1), text.length);
+  return text.slice(text.lastIndexOf('-') + 1, text.length);
 }
 
 class ProjectsSingle extends Component {
   componentDidMount() {
-    if(!this.props.project)
-      this.props.fetchQuery(
-        FETCH_PROJECTS_SINGLE, 
-        API_URL.collection('projects'),
-        {
-          limit: 1,
-          filter: {
-            '_id': getId(this.props.match.params.id),
-          }
+    if (!this.props.project)
+      this.props.fetchQuery(FETCH_PROJECTS_SINGLE, API_URL.collection('projects'), {
+        limit: 1,
+        filter: {
+          _id: getId(this.props.match.params.id)
         }
-      );    
+      });
   }
-  
+
   renderContent() {
     const { content } = this.props.project;
-    if(!content) return;
+    if (!content) return;
     return content.map(({ value }) => (
       <div className="container-big row justify-space-between" key={value.title}>
         <div className="col-md-6">
           <img src={API_URL.DOMAIN + value.img.path} alt="" />
         </div>
         <div className="col-md-4">
-          <p>
-            {value.description}
-          </p>
+          <p>{value.description}</p>
         </div>
       </div>
-    ))
+    ));
   }
 
-  render() {           
+  render() {
     const { project, loaded } = this.props;
-    console.log(project);
-    
-    if(!project) return <div></div>;
+
+    if (!project) return <div></div>;
     return (
       <div className="project__single row justify-space-between">
         <InView triggerOnce threshold={0.1}>
@@ -67,26 +56,23 @@ class ProjectsSingle extends Component {
               </ColorOverlay>
             </div>
           )}
-        </InView>        
+        </InView>
         <div className="col-md-4">
-          <p>
-            {project.mainText}
-          </p>
+          <p>{project.mainText}</p>
         </div>
         {this.renderContent()}
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({ projects }, ownProps) => {  
+const mapStateToProps = ({ projects }, ownProps) => {
   const id = getId(ownProps.match.params.id);
 
-  return {project: projects[id]};
-}
-
+  return { project: projects[id] };
+};
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { fetchQuery }
 )(ProjectsSingle);

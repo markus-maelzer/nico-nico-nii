@@ -8,37 +8,35 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { BrowserRouter } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
 
-import { rootReducer as reducer} from './redux';
+import { rootReducer as reducer } from './redux';
 import MainRouter from './router';
+import ScrollRestoration from './router/scroll-restoration';
 
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const reduxDevTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 const composeReduxMiddlewares = () => {
-  if(process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     return compose(
       applyMiddleware(reduxThunk),
       reduxDevTools
-    )
+    );
   } else {
-    return compose(
-      applyMiddleware(reduxThunk)
-    )
+    return compose(applyMiddleware(reduxThunk));
   }
-}
+};
 
-const store = createStore(
-  reducer,
-  composeReduxMiddlewares()
-)
-
+const store = createStore(reducer, composeReduxMiddlewares());
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <MainRouter />
+      <ScrollRestoration>
+        <MainRouter />
+      </ScrollRestoration>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
-)
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

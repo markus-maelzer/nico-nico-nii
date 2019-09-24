@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { DelayLinkPageTransition } from '../../router/delay-link';
 
 export class Nav extends Component {
   render() {
     return (
       <div>
-        <Link to="/">
+        <DelayLinkPageTransition to="/">
           <div>Projects</div>
-        </Link>
-        <Link to="/about-me">
+        </DelayLinkPageTransition>
+        <DelayLinkPageTransition to="/about-me">
           <div>About Me</div>
-        </Link>
+        </DelayLinkPageTransition>
       </div>
     );
   }
