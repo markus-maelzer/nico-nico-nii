@@ -9,11 +9,11 @@
   margin-top: -25px;
   z-index: 100;
   pointer-events: none;
-
   border-radius: 50%;
+  mix-blend-mode: difference;
 
   &__content {
-    background-color: crimson;
+    background-color: #fff;
     transform-origin: center;
     border-radius: 50%;
     width: 50px;
@@ -22,7 +22,7 @@
   }
 
   &.scale #{$self}__content {
-    transform: scale(60);
+    transform: scale(100);
   }
 
   &.color-change .circle__content {

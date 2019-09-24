@@ -9,6 +9,7 @@ import { FETCH_PROJECTS } from '../redux/types';
 import { DelayLink } from '../router/delay-link';
 
 import { Title, ScrollSlider, Box, ColorOverlay, TextFadeIn } from '../components';
+import { Z_FIXED } from 'zlib';
 
 // const parallaxData = [
 //   {
@@ -72,6 +73,13 @@ class Projects extends Component {
             <ColorOverlay visible={inView && loaded}>
               {/* <Plx parallaxData={parallaxData}> */}
               <img src={API_URL.DOMAIN + project.img.path} alt={project.title} />
+              {/* <div
+                style={{
+                  backgroundImage: `url(${API_URL.DOMAIN + project.img.path})`,
+                  backgroundAttachment: 'fixed',
+                  height: '350px'
+                }}
+              /> */}
               {/* </Plx> */}
             </ColorOverlay>
           </DelayLink>
@@ -87,12 +95,10 @@ class Projects extends Component {
         <section className="fh-v row justify-center flex-align-center nopt">
           <div className="container-big">
             <Title>
-              <TextFadeIn visible={loaded}>Hey,</TextFadeIn>
+              Hey,
               <br />
-              <TextFadeIn visible={loaded}>I’m Nicolas</TextFadeIn>
-              <span className="accent">
-                <TextFadeIn visible={loaded}> Cetl,</TextFadeIn>
-              </span>
+              I’m Nicolas
+              <span className="accent">Cetl,</span>
             </Title>
 
             <ScrollSlider totalSlides={2} scrollLock={false} reLockSlider={false}>

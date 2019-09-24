@@ -18,8 +18,6 @@ export const FollowCircle = props => {
     FollowCircleContext
   );
 
-  console.log(animationState);
-
   const render = () => {
     if (stuck) {
       requestAnimationFrame(render);
