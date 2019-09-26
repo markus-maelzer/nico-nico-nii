@@ -9,7 +9,7 @@ import { FETCH_PROJECTS } from '../redux/types';
 import { DelayLink } from '../router/delay-link';
 
 import { Title, ScrollSlider, Box, ColorOverlay, TextFadeIn } from '../components';
-import { Z_FIXED } from 'zlib';
+import { ProjectImage } from '../components/animators/project-image';
 
 // const parallaxData = [
 //   {
@@ -66,20 +66,22 @@ class Projects extends Component {
             to={`/projects/${this.formatTitle(project.title)}-${project._id}`}
           >
             <Title>
-              <TextFadeIn visible={inView && loaded} timeout={600}>
-                {project.title}
-              </TextFadeIn>
+              {/* <TextFadeIn visible={inView && loaded} timeout={600}> */}
+              {project.title}
+              {/* </TextFadeIn> */}
             </Title>
             <ColorOverlay visible={inView && loaded}>
               {/* <Plx parallaxData={parallaxData}> */}
-              <img src={API_URL.DOMAIN + project.img.path} alt={project.title} />
+              {/* <img src={API_URL.DOMAIN + project.img.path} alt={project.title} /> */}
               {/* <div
                 style={{
                   backgroundImage: `url(${API_URL.DOMAIN + project.img.path})`,
                   backgroundAttachment: 'fixed',
-                  height: '350px'
+                  backgroundSize: 'cover',
+                  height: 'calc(300px + 15vw)'
                 }}
               /> */}
+              <ProjectImage src={API_URL.DOMAIN + project.img.path} />
               {/* </Plx> */}
             </ColorOverlay>
           </DelayLink>
