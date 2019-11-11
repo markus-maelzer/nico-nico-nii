@@ -6,6 +6,7 @@ import MainWrapper from '../components/main-wrapper';
 import AboutMe from '../pages/AboutMe';
 import Projects from '../pages/Projects';
 import ProjectsSingle from '../pages/ProjectsSingle';
+import SmoothScrollTest from '../components/smooth-scroll/smooth-stroll-test';
 
 import { Footer, WindowLoaded } from '../components';
 import { FollowCircle, FollowCircleProvider } from '../components/follow-circle';
@@ -38,6 +39,7 @@ export default class MainRouter extends Component {
               component={WindowLoaded(ProjectsSingle, 300)}
             />
             <Route path="/about-me" component={WindowLoaded(AboutMe, 300)} />
+            <Route path="/test" component={WindowLoaded(SmoothScrollTest, 300)} />
             <Route exact path="/" component={WindowLoaded(Projects, 300)} />
           </Switch>
         </div>

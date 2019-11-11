@@ -17,8 +17,8 @@ const reduxDevTools =
 const composeReduxMiddlewares = () => {
   if (process.env.NODE_ENV === 'development') {
     return compose(
-      applyMiddleware(reduxThunk),
-      reduxDevTools
+      applyMiddleware(reduxThunk)
+      // reduxDevTools
     );
   } else {
     return compose(applyMiddleware(reduxThunk));

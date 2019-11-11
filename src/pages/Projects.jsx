@@ -70,10 +70,10 @@ class Projects extends Component {
               {project.title}
               {/* </TextFadeIn> */}
             </Title>
-            <ColorOverlay visible={inView && loaded}>
-              {/* <Plx parallaxData={parallaxData}> */}
-              {/* <img src={API_URL.DOMAIN + project.img.path} alt={project.title} /> */}
-              {/* <div
+            {/* <ColorOverlay visible={inView && loaded}> */}
+            {/* <Plx parallaxData={parallaxData}> */}
+            {/* <img src={API_URL.DOMAIN + project.img.path} alt={project.title} /> */}
+            {/* <div
                 style={{
                   backgroundImage: `url(${API_URL.DOMAIN + project.img.path})`,
                   backgroundAttachment: 'fixed',
@@ -81,9 +81,9 @@ class Projects extends Component {
                   height: 'calc(300px + 15vw)'
                 }}
               /> */}
-              <ProjectImage src={API_URL.DOMAIN + project.img.path} />
-              {/* </Plx> */}
-            </ColorOverlay>
+            <ProjectImage src={API_URL.DOMAIN + project.img.path} />
+            {/* </Plx> */}
+            {/* </ColorOverlay> */}
           </DelayLink>
         )}
       </InView>

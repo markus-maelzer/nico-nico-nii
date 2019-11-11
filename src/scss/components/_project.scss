@@ -1,10 +1,35 @@
 //main: ../index.scss
 
+.image-test {
+  background-position: center;
+  /* height: 430px; */
+  background-attachment: fixed;
+  display: block;
+  overflow: hidden;
+}
+
 .project {
   padding-left: calc(3rem + 20px);
   margin-top: calc(-60px);
   z-index: 1;
-  height: calc(300px + 15vw);
+  // height: calc(300px + 15vw);
+  padding-top: 50%;
+  display: block;
+
+  &__image {
+    // position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    &-container {
+      background-attachment: fixed;
+      overflow: hidden;
+      height: 500px;
+      width: 100%;
+    }
+  }
 
   .main-title {
     position: absolute;
