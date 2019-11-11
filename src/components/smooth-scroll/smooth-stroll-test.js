@@ -9,8 +9,8 @@ export default class SmoothScrollTest extends React.Component {
   render() {
     return (
       <SmoothScroll>
-        {this.state.images.map(image => {
-          return <img alt="alt" src={image} />;
+        {this.state.images.map((image, i) => {
+          return <img key={i} alt="alt" src={image} />;
         })}
         <button
           onClick={() => {
