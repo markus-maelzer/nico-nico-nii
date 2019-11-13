@@ -1,5 +1,6 @@
 import React from 'react';
 import posed from 'react-pose';
+import { throttle } from 'lodash';
 
 const Viewport = posed.div({
   init: {
@@ -17,7 +18,8 @@ const Viewport = posed.div({
 export default class SmoothScroll extends React.Component {
   state = {
     height: window.innerHeight,
-    scrollPos: 0
+    scrollPos: 0,
+    scrolling: false
   };
 
   ro = new ResizeObserver(elements => {
@@ -30,16 +32,12 @@ export default class SmoothScroll extends React.Component {
   });
 
   componentDidMount() {
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', throttle(this.setScrollPos, 20));
     this.ro.observe(this.viewport);
   }
 
-  onScroll = () => {
+  setScrollPos = () => {
     this.setState({ scrollPos: -window.pageYOffset });
-    // TweenLite.to(this.viewport, 1, {
-    //   y: -window.pageYOffset,
-    //   ease: Power4.easeOut
-    // });
   };
 
   render() {

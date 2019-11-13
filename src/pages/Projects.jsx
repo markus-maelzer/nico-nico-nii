@@ -11,6 +11,8 @@ import { DelayLink } from '../router/delay-link';
 import { Title, ScrollSlider, Box, ColorOverlay, TextFadeIn } from '../components';
 import { ProjectImage } from '../components/animators/project-image';
 
+import SmoothScroll from '../components/smooth-scroll';
+
 // const parallaxData = [
 //   {
 //     start: 'self',
@@ -93,7 +95,7 @@ class Projects extends Component {
   render() {
     const { loaded } = this.props;
     return (
-      <>
+      <SmoothScroll>
         <section className="fh-v row justify-center flex-align-center nopt">
           <div className="container-big">
             <Title>
@@ -145,7 +147,7 @@ class Projects extends Component {
         <div className="container-big column justify-space-between">
           {this.renderProjects()}
         </div>
-      </>
+      </SmoothScroll>
     );
   }
 }
@@ -154,7 +156,4 @@ const mapStateToProps = ({ projects }) => {
   return { projects };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetch }
-)(Projects);
+export default connect(mapStateToProps, { fetch })(Projects);
