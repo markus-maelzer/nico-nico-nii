@@ -27,6 +27,7 @@ export class DelayLink extends React.Component {
   handleClick = e => {
     const { replace, to, delay, onDelayStart, onDelayEnd } = this.props;
     const { history } = this.context.router;
+    console.log(this.context);
     // window.scrollTo({top: 1200, behavior: 'smooth'});
 
     onDelayStart(e, to);
