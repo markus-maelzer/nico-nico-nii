@@ -26,7 +26,7 @@ export const FollowCircle = props => {
 
     lastX = lerp(lastX, clientX, 0.2);
     lastY = lerp(lastY, clientY, 0.2);
-    circleRef.current.style.transform = `translate(${lastX}px,${lastY}px)`;
+    circleRef.current.style.transform = `translate(${clientX}px,${clientY}px)`;
 
     requestAnimationFrame(render);
   };
